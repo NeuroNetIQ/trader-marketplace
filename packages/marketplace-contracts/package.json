@@ -1,0 +1,49 @@
+{
+  "name": "@neuronetiq/marketplace-contracts",
+  "version": "0.2.0",
+  "description": "TypeScript contracts and schemas for the NeuroNetIQ ML Marketplace",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && cp -r src/*.schema.json dist/ 2>/dev/null || true",
+    "test": "node --test test/*.spec.js",
+    "prepublishOnly": "pnpm build",
+    "dev": "tsc -p tsconfig.json --watch"
+  },
+  "keywords": [
+    "trading",
+    "ml",
+    "marketplace",
+    "contracts",
+    "schemas",
+    "typescript"
+  ],
+  "author": "NeuroNetIQ",
+  "license": "MIT",
+  "peerDependencies": {
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "zod": "^3.23.8"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

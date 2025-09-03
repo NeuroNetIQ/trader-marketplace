@@ -1,0 +1,33 @@
+{
+  "name": "runpod-signal-http",
+  "version": "0.1.0",
+  "description": "HTTP-based signal inference model template for RunPod deployment",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "test": "node --test test/*.spec.js"
+  },
+  "keywords": [
+    "trading",
+    "ml",
+    "runpod",
+    "signal",
+    "template"
+  ],
+  "author": "NeuroNetIQ",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^4.26.2",
+    "node-fetch": "^3.3.2",
+    "@neuronetiq/marketplace-contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "node-heartbeat-sender",
+  "version": "1.0.0",
+  "description": "Example heartbeat sender for NeuroNetIQ ML Marketplace",
+  "type": "module",
+  "main": "heartbeat.js",
+  "scripts": {
+    "start": "node heartbeat.js",
+    "heartbeat": "node heartbeat.js --interval=30"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "keywords": [
+    "neuronetiq",
+    "marketplace",
+    "heartbeat",
+    "monitoring"
+  ],
+  "author": "NeuroNetIQ",
+  "license": "MIT"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "trader-marketplace",
+  "private": true,
+  "packageManager": "pnpm@10.14.0",
+  "workspaces": [
+    "packages/*",
+    "templates/*"
+  ],
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "echo \"(add your linter)\"",
+    "dev:inference": "pnpm --filter runpod-signal-http dev",
+    "dev:training": "pnpm --filter runpod-signal-train dev",
+    "release:contracts": "pnpm --filter @neuronetiq/marketplace-contracts publish --access public",
+    "release:cli": "pnpm --filter @neuronetiq/marketplace-cli publish --access public"
+  },
+  "engines": {
+    "node": "20.11.x",
+    "pnpm": "10.14.0"
+  }
+}

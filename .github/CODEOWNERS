@@ -1,0 +1,15 @@
+# Global ownership
+* @NeuroNetIQ
+
+# Package-specific ownership
+packages/marketplace-contracts/ @NeuroNetIQ
+packages/marketplace-cli/ @NeuroNetIQ
+apps/marketplace-web/ @NeuroNetIQ
+templates/ @NeuroNetIQ
+
+# CI/CD and configuration
+.github/ @NeuroNetIQ
+*.json @NeuroNetIQ
+*.yaml @NeuroNetIQ
+*.yml @NeuroNetIQ
+Dockerfile @NeuroNetIQ

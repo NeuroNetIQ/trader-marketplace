@@ -1,0 +1,50 @@
+{
+  "name": "@neuronetiq/marketplace-cli",
+  "version": "0.2.0",
+  "description": "CLI tool for interacting with the NeuroNetIQ ML Marketplace",
+  "type": "module",
+  "bin": {
+    "mp": "./bin/mp.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && chmod +x ./bin/mp.js",
+    "dev": "tsx watch src/index.ts",
+    "test": "node --test test/*.spec.js",
+    "prepublishOnly": "pnpm build"
+  },
+  "keywords": [
+    "trading",
+    "ml",
+    "marketplace",
+    "cli",
+    "runpod"
+  ],
+  "author": "NeuroNetIQ",
+  "license": "MIT",
+  "dependencies": {
+    "@neuronetiq/marketplace-contracts": "workspace:*",
+    "commander": "^11.1.0",
+    "node-fetch": "^3.3.2",
+    "ora": "^8.0.1",
+    "picocolors": "^1.0.0",
+    "prompts": "^2.4.2",
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "tsx": "^4.7.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/prompts": "^2.4.9"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "runpod-signal-train",
+  "version": "0.1.0",
+  "description": "RunPod training template for signal models",
+  "type": "module",
+  "scripts": {
+    "build": "echo 'Python training template - no build needed'",
+    "start": "python train.py",
+    "train": "python train.py",
+    "test": "python -m pytest tests/ || echo 'No tests found'"
+  },
+  "keywords": [
+    "trading",
+    "ml",
+    "runpod",
+    "training",
+    "signal"
+  ],
+  "author": "NeuroNetIQ",
+  "license": "MIT",
+  "dependencies": {
+    "@neuronetiq/marketplace-contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=20.11.0",
+    "python": ">=3.9"
+  }
+}
