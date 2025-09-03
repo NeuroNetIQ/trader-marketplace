@@ -9,11 +9,19 @@
   "scripts": {
     "build": "pnpm -r build",
     "test": "pnpm -r test",
-    "lint": "echo \"(add your linter)\"",
+    "typecheck": "pnpm -r typecheck || pnpm -r type-check",
+    "lint": "pnpm -r lint",
+    "format": "pnpm -r format",
+    "clean": "pnpm -r clean && rm -rf dist/ node_modules/.cache/",
     "dev:inference": "pnpm --filter runpod-signal-http dev",
     "dev:training": "pnpm --filter runpod-signal-train dev",
+    "validate:templates": "make -C templates/runpod-signal-http validate && make -C templates/runpod-signal-train validate",
+    "e2e": "./scripts/e2e-test.sh",
+    "doctor": "./packages/marketplace-cli/bin/mp.js doctor",
     "release:contracts": "pnpm --filter @neuronetiq/marketplace-contracts publish --access public",
-    "release:cli": "pnpm --filter @neuronetiq/marketplace-cli publish --access public"
+    "release:cli": "pnpm --filter @neuronetiq/marketplace-cli publish --access public",
+    "release:all": "pnpm run release:contracts && pnpm run release:cli",
+    "postinstall": "pnpm build"
   },
   "engines": {
     "node": "20.11.x",

@@ -4,8 +4,17 @@
 # Package-specific ownership
 packages/marketplace-contracts/ @NeuroNetIQ
 packages/marketplace-cli/ @NeuroNetIQ
-apps/marketplace-web/ @NeuroNetIQ
 templates/ @NeuroNetIQ
+
+# Documentation
+docs/ @NeuroNetIQ
+examples/ @NeuroNetIQ
+*.md @NeuroNetIQ
+
+# Security and compliance
+SECURITY.md @NeuroNetIQ
+.github/workflows/ @NeuroNetIQ
+.github/dependabot.yml @NeuroNetIQ
 
 # CI/CD and configuration
 .github/ @NeuroNetIQ
@@ -13,3 +22,6 @@ templates/ @NeuroNetIQ
 *.yaml @NeuroNetIQ
 *.yml @NeuroNetIQ
 Dockerfile @NeuroNetIQ
+
+# Scripts and automation
+scripts/ @NeuroNetIQ

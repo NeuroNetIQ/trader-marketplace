@@ -1,0 +1,429 @@
+openapi: 3.0.3
+info:
+  title: NeuroNetIQ ML Marketplace API
+  description: |
+    API endpoints for the NeuroNetIQ ML Marketplace.
+    
+    These endpoints should be implemented in your private Infrastructure repository.
+    The marketplace CLI and frontend applications interact with these endpoints.
+  version: 0.2.0
+  contact:
+    name: NeuroNetIQ Support
+    email: support@neuronetiq.com
+    url: https://github.com/NeuroNetIQ/trader-marketplace
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://infra.neuronetiq.com
+    description: Production Infrastructure
+  - url: https://staging-infra.neuronetiq.com
+    description: Staging Infrastructure
+  - url: http://localhost:3010
+    description: Local Development
+
+paths:
+  # Public endpoints
+  /api/catalog:
+    get:
+      summary: Get public model catalog
+      description: Returns list of all public models available in the marketplace
+      tags: [Public]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CatalogModel'
+
+  /api/health:
+    get:
+      summary: Service health check
+      description: Returns service health status and version information
+      tags: [Public]
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  service:
+                    type: string
+                  version:
+                    type: string
+                  timestamp:
+                    type: string
+                    format: date-time
+
+  # Dataset endpoints
+  /api/rounds/current:
+    get:
+      summary: Get current dataset round
+      description: Returns information about the current training dataset round
+      tags: [Datasets]
+      responses:
+        '200':
+          description: Current round information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/DatasetRound'
+
+  /api/datasets/signed-urls:
+    post:
+      summary: Generate signed download URLs
+      description: Creates time-limited signed URLs for downloading training datasets
+      tags: [Datasets]
+      security:
+        - VendorAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                round_id:
+                  type: string
+                  example: "2025-01-03"
+              required: [round_id]
+      responses:
+        '200':
+          description: Signed URLs generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignedUrlResponse'
+
+  # Training endpoints
+  /api/training/runs:
+    post:
+      summary: Create training run
+      description: Starts a new training run with specified configuration
+      tags: [Training]
+      security:
+        - VendorAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainingSpec'
+      responses:
+        '200':
+          description: Training run created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/TrainingRun'
+
+  /api/training/runs/{run_id}:
+    get:
+      summary: Get training run status
+      description: Returns current status and details of a training run
+      tags: [Training]
+      security:
+        - VendorAuth: []
+      parameters:
+        - name: run_id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "run_abc123"
+      responses:
+        '200':
+          description: Training run details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/TrainingRun'
+
+  # Vendor management endpoints
+  /api/marketplace/vendor/me:
+    get:
+      summary: Get vendor profile
+      description: Returns vendor profile information
+      tags: [Vendor]
+      security:
+        - VendorAuth: []
+      responses:
+        '200':
+          description: Vendor profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/VendorProfile'
+
+  /api/marketplace/vendor/heartbeats:
+    post:
+      summary: Send deployment heartbeat
+      description: Reports deployment health and metrics
+      tags: [Vendor]
+      security:
+        - VendorAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Heartbeat'
+      responses:
+        '200':
+          description: Heartbeat recorded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      heartbeat_id:
+                        type: string
+                      timestamp:
+                        type: string
+                        format: date-time
+
+components:
+  securitySchemes:
+    VendorAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Vendor authentication token from mp login
+
+  schemas:
+    CatalogModel:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        vendor:
+          type: string
+        task:
+          type: string
+          enum: [signal, consensus, optimizer]
+        stage:
+          type: string
+          enum: [shadow, pilot, prod, retired]
+        last_heartbeat_at:
+          type: string
+          format: date-time
+          nullable: true
+        last_oos_sharpe:
+          type: number
+          nullable: true
+        status:
+          type: string
+          enum: [ready, error, maintenance, offline]
+
+    DatasetRound:
+      type: object
+      properties:
+        round_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        schema_version:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        expires_at:
+          type: string
+          format: date-time
+        files:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                enum: [train, validation, test, features]
+              size_bytes:
+                type: integer
+              format:
+                type: string
+
+    SignedUrlResponse:
+      type: object
+      properties:
+        urls:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              url:
+                type: string
+                format: uri
+              expires_at:
+                type: string
+                format: date-time
+        round_id:
+          type: string
+        ttl_seconds:
+          type: integer
+
+    TrainingSpec:
+      type: object
+      properties:
+        round_id:
+          type: string
+        dataset_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+        task:
+          type: string
+          enum: [signal, consensus, optimizer]
+        hyperparams:
+          type: object
+          additionalProperties: true
+        hf_repo_id:
+          type: string
+        budget:
+          type: object
+          properties:
+            max_hours:
+              type: number
+            max_cost_usd:
+              type: number
+      required: [round_id, dataset_urls, task]
+
+    TrainingRun:
+      type: object
+      properties:
+        run_id:
+          type: string
+        provider:
+          type: string
+          enum: [runpod, byoc]
+        status:
+          type: string
+          enum: [queued, running, succeeded, failed, cancelled]
+        created_at:
+          type: string
+          format: date-time
+        started_at:
+          type: string
+          format: date-time
+        finished_at:
+          type: string
+          format: date-time
+        logs_url:
+          type: string
+          format: uri
+        artifacts:
+          type: object
+          properties:
+            hf_repo:
+              type: string
+            commit:
+              type: string
+        metrics:
+          type: object
+          additionalProperties:
+            type: number
+
+    VendorProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+          enum: [active, suspended, pending]
+        created_at:
+          type: string
+          format: date-time
+
+    Heartbeat:
+      type: object
+      properties:
+        deployment_id:
+          type: string
+        status:
+          type: string
+          enum: [ready, error, maintenance, offline]
+        timestamp:
+          type: string
+          format: date-time
+        metrics:
+          type: object
+          properties:
+            cpu_usage:
+              type: number
+              minimum: 0
+              maximum: 1
+            memory_usage:
+              type: number
+              minimum: 0
+              maximum: 1
+            uptime_seconds:
+              type: number
+            requests_processed:
+              type: integer
+            avg_latency_ms:
+              type: number
+            error_count_last_minute:
+              type: integer
+        message:
+          type: string
+      required: [deployment_id, status, timestamp]
+
+tags:
+  - name: Public
+    description: Public endpoints (no authentication required)
+  - name: Datasets
+    description: Training dataset management
+  - name: Training
+    description: Training run management
+  - name: Vendor
+    description: Vendor profile and deployment management

@@ -1,0 +1,22 @@
+{
+  "packages": {
+    "packages/marketplace-contracts": {
+      "package-name": "@neuronetiq/marketplace-contracts",
+      "component": "contracts"
+    },
+    "packages/marketplace-cli": {
+      "package-name": "@neuronetiq/marketplace-cli", 
+      "component": "cli"
+    }
+  },
+  "release-type": "node",
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": true,
+  "draft": false,
+  "prerelease": false,
+  "include-v-in-tag": false,
+  "separate-pull-requests": true,
+  "group-pull-request-title-pattern": "chore: release ${version}",
+  "release-search-depth": 400,
+  "commit-search-depth": 400
+}

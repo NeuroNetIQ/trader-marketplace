@@ -1,0 +1,91 @@
+version: 2
+updates:
+  # Package ecosystem updates
+  - package-ecosystem: "npm"
+    directory: "/packages/marketplace-contracts"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "NeuroNetIQ"
+    commit-message:
+      prefix: "chore(contracts)"
+      include: "scope"
+
+  - package-ecosystem: "npm"
+    directory: "/packages/marketplace-cli"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "NeuroNetIQ"
+    commit-message:
+      prefix: "chore(cli)"
+      include: "scope"
+
+  # Template updates
+  - package-ecosystem: "npm"
+    directory: "/templates/runpod-signal-http"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "NeuroNetIQ"
+    commit-message:
+      prefix: "chore(template)"
+      include: "scope"
+
+  # Root dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "NeuroNetIQ"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "NeuroNetIQ"
+    commit-message:
+      prefix: "chore(actions)"
+      include: "scope"
+
+  # Docker base images
+  - package-ecosystem: "docker"
+    directory: "/templates/runpod-signal-http"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "NeuroNetIQ"
+
+  - package-ecosystem: "docker"
+    directory: "/templates/runpod-signal-train"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "NeuroNetIQ"

@@ -1,4 +1,4 @@
-# Use NVIDIA CUDA base image for GPU support
+# Use specific CUDA version for reproducibility
 FROM nvidia/cuda:12.2.2-runtime-ubuntu22.04
 
 # Set working directory
