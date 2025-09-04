@@ -22,7 +22,7 @@ const program = new Command();
 program
   .name("mp")
   .description("NeuroNetIQ ML Marketplace CLI")
-  .version("0.2.0")
+  .version("0.2.1")
   .configureHelp({
     sortSubcommands: true,
     subcommandTerm: (cmd) => cmd.name(),

@@ -6,7 +6,7 @@ export const HEADER_CONTRACTS_VERSION = "X-Marketplace-Contracts-Version";
 export const HEADER_MARKETPLACE_TOKEN = "X-Marketplace-Token";
 export const HEADER_IDEMPOTENCY_KEY = "X-Idempotency-Key";
 
-export const CONTRACTS_SEMVER = "0.2.0";
+export const CONTRACTS_SEMVER = "0.2.1";
 
 /**
  * Helper to add standard marketplace headers to requests

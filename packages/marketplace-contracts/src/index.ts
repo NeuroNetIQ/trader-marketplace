@@ -31,5 +31,8 @@ export * from "./utils.js";
 // Training and datasets
 export * from "./training.js";
 
+// Authentication and user management
+export * from "./auth.js";
+
 // Re-export commonly used Zod for convenience
 export { z } from "zod";

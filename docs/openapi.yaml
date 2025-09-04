@@ -6,7 +6,9 @@ info:
     
     These endpoints should be implemented in your private Infrastructure repository.
     The marketplace CLI and frontend applications interact with these endpoints.
-  version: 0.2.0
+    
+    Aligned with @neuronetiq/contracts@0.16.4 auth-linked schemas.
+  version: 0.2.1
   contact:
     name: NeuroNetIQ Support
     email: support@neuronetiq.com
@@ -167,11 +169,60 @@ paths:
                   data:
                     $ref: '#/components/schemas/TrainingRun'
 
+  # Authentication endpoints (v0.16.4)
+  /api/marketplace/vendor/auth/exchange:
+    post:
+      summary: Exchange auth code for API key (SSO flow)
+      description: Exchanges temporary auth code from SSO flow for vendor API key
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiKeyExchangeRequest'
+      responses:
+        '200':
+          description: API key generated (shown only once)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/ApiKeyExchangeResponse'
+
+  /api/marketplace/vendor/auth/validate:
+    post:
+      summary: Validate API key and get scoped token
+      description: Validates vendor API key and returns scoped session token
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiKeyValidateRequest'
+      responses:
+        '200':
+          description: API key valid, scoped token returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/ApiKeyValidateResponse'
+
   # Vendor management endpoints
   /api/marketplace/vendor/me:
     get:
       summary: Get vendor profile
-      description: Returns vendor profile information
+      description: Returns vendor profile information with GitHub integration
       tags: [Vendor]
       security:
         - VendorAuth: []
@@ -375,12 +426,83 @@ components:
       properties:
         id:
           type: string
-        name:
+          format: uuid
+        user_id:
           type: string
+          format: uuid
+        vendor_name:
+          type: string
+        github_username:
+          type: string
+        api_key_created_at:
+          type: string
+          format: date-time
+        api_key_last_used:
+          type: string
+          format: date-time
+        revenue_share:
+          type: number
+          minimum: 0
+          maximum: 1
         status:
           type: string
           enum: [active, suspended, pending]
         created_at:
+          type: string
+          format: date-time
+
+    ApiKeyExchangeRequest:
+      type: object
+      properties:
+        auth_code:
+          type: string
+        cli_version:
+          type: string
+        user_agent:
+          type: string
+      required: [auth_code]
+
+    ApiKeyExchangeResponse:
+      type: object
+      properties:
+        api_key:
+          type: string
+          description: Vendor API key (shown only once)
+        vendor_id:
+          type: string
+        vendor_name:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
+        permissions:
+          type: array
+          items:
+            type: string
+
+    ApiKeyValidateRequest:
+      type: object
+      properties:
+        api_key:
+          type: string
+      required: [api_key]
+
+    ApiKeyValidateResponse:
+      type: object
+      properties:
+        vendor_id:
+          type: string
+        vendor_name:
+          type: string
+        github_username:
+          type: string
+        scoped_token:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+        expires_at:
           type: string
           format: date-time
 
