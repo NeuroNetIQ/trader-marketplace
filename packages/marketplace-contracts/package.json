@@ -47,8 +47,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "@neuronetiq/contracts": "0.16.4"
   }
 }

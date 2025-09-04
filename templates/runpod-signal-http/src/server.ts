@@ -5,8 +5,6 @@ import {
   SignalWrite,
   withMarketplaceHeaders,
   makeIdempotencyKey,
-  buildIdempotencyKey,
-  makeV164Signal,
   Decision,
 } from "@neuronetiq/marketplace-contracts";
 
@@ -58,25 +56,6 @@ app.post("/infer", async (req, reply) => {
     
     const inferenceTime = Date.now() - startTime;
     
-    // Create v0.16.4 compliant signal using helper
-    const v164Signal = makeV164Signal({
-      owner: process.env.VENDOR_ID || "marketplace_vendor",
-      model_id: process.env.MODEL_ID || "runpod_signal_model",
-      symbol,
-      timeframe,
-      bar_ts: now.toISOString(),
-      decision: decision.decision,
-      confidence: decision.confidence,
-      meta: {
-        model_version: process.env.MODEL_VERSION || "1.0.0",
-        inference_time_ms: inferenceTime,
-        features_count: features ? Object.keys(features).length : 0,
-        ohlcv_bars: ohlcv ? ohlcv.length : 0,
-        rationale: decision.rationale,
-        vendor_id: process.env.VENDOR_ID,
-        deployment_id: process.env.DEPLOYMENT_ID,
-      }
-    });
 
     // Prepare marketplace response (for API consumers)
     const payload = SignalWrite.parse({
@@ -100,17 +79,15 @@ app.post("/infer", async (req, reply) => {
     if (process.env.INFRA_SIGNALS_URL && process.env.MARKETPLACE_TOKEN) {
       try {
         const writeStartTime = Date.now();
-        // Write v0.16.4 compliant signal to Infrastructure
         const response = await fetch(process.env.INFRA_SIGNALS_URL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.MARKETPLACE_TOKEN}`,
-            "X-Idempotency-Key": buildIdempotencyKey(v164Signal),
-            "X-Contracts-Version": "0.16.4",
+            "X-Idempotency-Key": makeIdempotencyKey(symbol, timeframe, now),
             ...withMarketplaceHeaders(),
           },
-          body: JSON.stringify(v164Signal), // Use v0.16.4 compliant payload
+          body: JSON.stringify([payload]),
         });
 
         const writeTime = Date.now() - writeStartTime;

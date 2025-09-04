@@ -31,11 +31,6 @@ export * from "./utils.js";
 // Training and datasets
 export * from "./training.js";
 
-// Authentication and user management
-export * from "./auth.js";
-
-// V0.16.4 compliance helpers
-export * from "./v0164-helpers.js";
 
 // Re-export commonly used Zod for convenience
 export { z } from "zod";

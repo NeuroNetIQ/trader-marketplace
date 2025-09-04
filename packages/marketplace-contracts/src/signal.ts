@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 /**
- * Trading signal schemas and types (v0.16.4 compliant)
+ * Trading signal schemas and types
  */
 
 export const Timeframe = z.enum(["1m", "5m", "15m", "1h", "4h", "1d"]);

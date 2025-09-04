@@ -10,9 +10,6 @@ importers:
 
   packages/marketplace-cli:
     dependencies:
-      '@neuronetiq/contracts':
-        specifier: ^0.16.4
-        version: 0.16.4(zod@3.25.76)
       '@neuronetiq/marketplace-contracts':
         specifier: workspace:*
         version: link:../marketplace-contracts
@@ -49,10 +46,6 @@ importers:
         version: 5.9.2
 
   packages/marketplace-contracts:
-    dependencies:
-      '@neuronetiq/contracts':
-        specifier: 0.16.5
-        version: 0.16.5(zod@3.25.76)
     devDependencies:
       typescript:
         specifier: ^5.5.0
@@ -63,9 +56,6 @@ importers:
 
   templates/runpod-signal-http:
     dependencies:
-      '@neuronetiq/contracts':
-        specifier: ^0.16.4
-        version: 0.16.4(zod@3.25.76)
       '@neuronetiq/marketplace-contracts':
         specifier: workspace:*
         version: link:../../packages/marketplace-contracts
@@ -265,20 +255,6 @@ packages:
 
   '@fastify/merge-json-schemas@0.1.1':
     resolution: {integrity: sha512-fERDVz7topgNjtXsJTTW1JKLy0rhuLRcquYqNR9rF7OcVpCa2OVW49ZPDIhaRRCaUuvVxI+N416xUoF76HNSXA==}
-
-  '@neuronetiq/contracts@0.16.4':
-    resolution: {integrity: sha512-Lvpynxp/UNRep3EzFTnOKW2+W+M6USNmA1vm/d67SINEXwH1X72henwCKSxcQpGli9u7NlVeRJwvQLLgcaz7nw==}
-    engines: {node: '>=20.0.0', pnpm: '>=8.0.0'}
-    hasBin: true
-    peerDependencies:
-      zod: ^4.0.0
-
-  '@neuronetiq/contracts@0.16.5':
-    resolution: {integrity: sha512-G1fHZL6XT49KW/KyHxd1mAt9ReMFwFykUzHlHAecfTpi9W+Hxv2ekyaD5GioSWUho2dU4NfKTk0KnM3aQiGtVQ==}
-    engines: {node: '>=20.0.0', pnpm: '>=8.0.0'}
-    hasBin: true
-    peerDependencies:
-      zod: ^4.0.0
 
   '@types/fs-extra@11.0.4':
     resolution: {integrity: sha512-yTbItCNreRooED33qjunPthRcSjERP1r4MqCZc7wv0u2sUkzTFp45tgUfS5+r7FrZPdmCCNflLhVSP/o+SemsQ==}
@@ -710,14 +686,6 @@ snapshots:
   '@fastify/merge-json-schemas@0.1.1':
     dependencies:
       fast-deep-equal: 3.1.3
-
-  '@neuronetiq/contracts@0.16.4(zod@3.25.76)':
-    dependencies:
-      zod: 3.25.76
-
-  '@neuronetiq/contracts@0.16.5(zod@3.25.76)':
-    dependencies:
-      zod: 3.25.76
 
   '@types/fs-extra@11.0.4':
     dependencies:

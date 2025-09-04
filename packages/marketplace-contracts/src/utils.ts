@@ -3,20 +3,11 @@
  */
 
 /**
- * Generate idempotency key for 5-second slots (v0.16.4 compliant)
+ * Generate idempotency key for 5-second slots
  */
 export const makeIdempotencyKey = (symbol: string, timeframe: string, ts: Date): string => {
   const slot = Math.floor(ts.getTime() / 5000);
   return `${symbol}:${timeframe}:${slot}`;
-};
-
-/**
- * Build idempotency key from signal payload (v0.16.4 helper)
- */
-export const buildIdempotencyKey = (payload: { symbol: string; timeframe: string; bar_ts?: string; timestamp?: string }): string => {
-  const timestamp = payload.bar_ts || payload.timestamp || new Date().toISOString();
-  const ts = new Date(timestamp);
-  return makeIdempotencyKey(payload.symbol, payload.timeframe, ts);
 };
 
 /**
