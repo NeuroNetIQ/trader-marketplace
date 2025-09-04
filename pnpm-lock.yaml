@@ -51,8 +51,8 @@ importers:
         specifier: ^5.5.0
         version: 5.9.2
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.1.5
+        version: 4.1.5
 
   templates/runpod-signal-http:
     dependencies:
@@ -588,8 +588,8 @@ packages:
     resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
     engines: {node: '>= 8'}
 
-  zod@3.25.76:
-    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+  zod@4.1.5:
+    resolution: {integrity: sha512-rcUUZqlLJgBC33IT3PNMgsCq6TzLQEG/Ei/KTCU0PedSWRMAXoOUN+4t/0H+Q8bdnLPdqUYnvboJT0bn/229qg==}
 
 snapshots:
 
@@ -1030,4 +1030,4 @@ snapshots:
 
   web-streams-polyfill@3.3.3: {}
 
-  zod@3.25.76: {}
+  zod@4.1.5: {}
