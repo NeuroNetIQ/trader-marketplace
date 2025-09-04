@@ -1,5 +1,5 @@
 # Use specific Node.js version for reproducibility
-FROM node:20.11.0-alpine3.19
+FROM node:23.3.0-alpine3.19
 
 # Set working directory
 WORKDIR /app
