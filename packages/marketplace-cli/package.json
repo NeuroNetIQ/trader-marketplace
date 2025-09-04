@@ -28,7 +28,7 @@
   "license": "MIT",
   "dependencies": {
     "@neuronetiq/marketplace-contracts": "workspace:*",
-    "commander": "^11.1.0",
+    "commander": "^14.0.0",
     "fs-extra": "^11.2.0",
     "node-fetch": "^3.3.2",
     "ora": "^8.0.1",
