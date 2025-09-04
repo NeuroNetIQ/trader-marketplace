@@ -1,5 +1,5 @@
 # Use specific CUDA version for reproducibility
-FROM nvidia/cuda:12.2.2-runtime-ubuntu22.04
+FROM nvidia/cuda:13.0.0-runtime-ubuntu22.04
 
 # Set working directory
 WORKDIR /app
