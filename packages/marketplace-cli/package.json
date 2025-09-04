@@ -1,6 +1,6 @@
 {
   "name": "@neuronetiq/marketplace-cli",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "CLI tool for interacting with the NeuroNetIQ ML Marketplace",
   "type": "module",
   "bin": {
@@ -27,6 +27,7 @@
   "author": "NeuroNetIQ",
   "license": "MIT",
   "dependencies": {
+    "@neuronetiq/contracts": "^0.16.4",
     "@neuronetiq/marketplace-contracts": "workspace:*",
     "commander": "^11.1.0",
     "node-fetch": "^3.3.2",
