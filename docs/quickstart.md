@@ -28,7 +28,7 @@ mp doctor
 ### Option A: SSO Login (Recommended)
 ```bash
 # Opens browser for GitHub/Google login
-mp login --sso
+mp login --sso --api-url https://infra.neuronetiq.com
 
 # Follow browser prompts, then enter auth code
 # Enter the authentication code from your browser: abc123def456
@@ -38,7 +38,14 @@ mp login --sso
 ### Option B: API Key Login
 ```bash
 # Get API key from vendor console first
-mp login --api-key vk_your_api_key_here
+mp login --api-key vk_your_api_key_here --api-url https://infra.neuronetiq.com
+```
+
+### Environment Configuration
+```bash
+# Set default API URL to avoid repeating --api-url
+export INFRA_API_URL=https://infra.neuronetiq.com
+mp login --sso  # Now uses environment variable
 ```
 
 ## Step 3: Get Training Data (2 minutes)

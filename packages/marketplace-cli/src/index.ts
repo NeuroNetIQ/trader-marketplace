@@ -15,6 +15,7 @@ import linkInfra from "./commands/link-infra.js";
 import train from "./commands/train.js";
 import data from "./commands/data.js";
 import doctor from "./commands/doctor.js";
+import config from "./commands/config.js";
 
 const program = new Command();
 
@@ -29,6 +30,7 @@ program
 
 // Add all commands
 program.addCommand(login);
+program.addCommand(config);
 program.addCommand(doctor);
 program.addCommand(data);
 program.addCommand(train);

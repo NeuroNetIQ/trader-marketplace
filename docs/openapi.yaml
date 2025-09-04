@@ -21,7 +21,7 @@ servers:
   - url: https://staging-infra.neuronetiq.com
     description: Staging Infrastructure
   - url: http://localhost:3010
-    description: Local Development
+    description: Local Development (use INFRA_API_URL env var)
 
 paths:
   # Public endpoints

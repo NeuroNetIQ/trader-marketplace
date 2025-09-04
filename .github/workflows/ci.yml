@@ -66,6 +66,16 @@ jobs:
       - name: Run unit tests
         run: pnpm test
         
+      - name: No localhost drift check
+        run: |
+          echo "🔍 Checking for localhost references..."
+          if rg -n 'localhost:(30(10|03))|127\.0\.0\.1:(30(10|03))' packages/ templates/ examples/ docs/; then
+            echo "❌ Found localhost references that should use environment variables"
+            exit 1
+          else
+            echo "✅ No hardcoded localhost URLs found"
+          fi
+        
       - name: CLI Doctor Check
         if: matrix.run-e2e
         run: |

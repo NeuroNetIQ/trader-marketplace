@@ -434,7 +434,7 @@ mp data pull --round current  # Check file sizes first
 ### **Development Environment**
 ```bash
 # Local development
-API_URL=http://localhost:3010
+INFRA_API_URL=http://localhost:3010
 RUNPOD_API_KEY=optional_for_local_testing
 HF_TOKEN=optional_for_local_testing
 ```
@@ -442,7 +442,7 @@ HF_TOKEN=optional_for_local_testing
 ### **Production Environment**
 ```bash
 # Production deployment
-API_URL=https://infra.neuronetiq.com
+INFRA_API_URL=https://infra.neuronetiq.com
 RUNPOD_API_KEY=required_for_deployment
 HF_TOKEN=required_for_model_storage
 WANDB_API_KEY=optional_for_tracking
