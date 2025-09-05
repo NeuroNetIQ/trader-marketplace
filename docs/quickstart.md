@@ -28,7 +28,7 @@ mp doctor
 ### Option A: SSO Login (Recommended)
 ```bash
 # Opens browser for GitHub/Google login
-mp login --sso --api-url https://infra.neuronetiq.com
+mp login --sso --api-url https://trader-infra.fly.dev
 
 # Follow browser prompts, then enter auth code
 # Enter the authentication code from your browser: abc123def456
@@ -38,13 +38,13 @@ mp login --sso --api-url https://infra.neuronetiq.com
 ### Option B: API Key Login
 ```bash
 # Get API key from vendor console first
-mp login --api-key vk_your_api_key_here --api-url https://infra.neuronetiq.com
+mp login --api-key vk_your_api_key_here --api-url https://trader-infra.fly.dev
 ```
 
 ### Environment Configuration
 ```bash
 # Set default API URL to avoid repeating --api-url
-export INFRA_API_URL=https://infra.neuronetiq.com
+export MARKETPLACE_INFRA_API_URL=https://trader-infra.fly.dev
 mp login --sso  # Now uses environment variable
 ```
 

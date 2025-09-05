@@ -28,6 +28,7 @@ export async function apiRequest<T = any>(
   const url = `${config.apiUrl}${endpoint}`;
   const headers: Record<string, string> = withMarketplaceHeaders({
     "Content-Type": "application/json",
+    "X-Contracts-Version": "0.17.0",
     ...options.headers,
   });
 
@@ -85,6 +86,7 @@ export async function infraRequest<T = any>(
   const headers: Record<string, string> = withMarketplaceHeaders({
     "Content-Type": "application/json",
     Authorization: `Bearer ${config.infraToken}`,
+    "X-Contracts-Version": "0.17.0",
     ...options.headers,
   });
 

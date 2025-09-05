@@ -18,12 +18,12 @@ info:
     url: https://opensource.org/licenses/MIT
 
 servers:
-  - url: https://infra.neuronetiq.com
-    description: Production Infrastructure
-  - url: https://staging-infra.neuronetiq.com
+  - url: https://trader-infra.fly.dev
+    description: Production Infrastructure (Hono + Fly.io)
+  - url: https://staging-trader-infra.fly.dev
     description: Staging Infrastructure
-  - url: http://localhost:3010
-    description: Local Development (use INFRA_API_URL env var)
+  - url: http://localhost:8080
+    description: Local Development (use MARKETPLACE_INFRA_API_URL env var)
 
 paths:
   # Public endpoints

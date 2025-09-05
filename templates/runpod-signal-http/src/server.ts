@@ -84,6 +84,7 @@ app.post("/infer", async (req, reply) => {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.MARKETPLACE_TOKEN}`,
+            "X-Contracts-Version": process.env.CONTRACTS_VERSION || "0.17.0",
             "X-Idempotency-Key": makeIdempotencyKey(symbol, timeframe, now),
             ...withMarketplaceHeaders(),
           },

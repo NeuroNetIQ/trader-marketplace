@@ -7,7 +7,7 @@ import { apiRequest } from "../lib/api.js";
 
 const login = new Command("login")
   .description("Authenticate with the Marketplace")
-  .option("--api-url <url>", "Marketplace API URL", process.env.INFRA_API_URL || "https://infra.neuronetiq.com")
+  .option("--api-url <url>", "Marketplace API URL", process.env.MARKETPLACE_INFRA_API_URL || "https://trader-infra.fly.dev")
   .option("--api-key <key>", "API key (if you already have one)")
   .option("--sso", "Use SSO login (opens browser)")
   .action(async (options) => {
