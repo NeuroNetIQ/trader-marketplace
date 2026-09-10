@@ -1,0 +1,231 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "enabledManagers": [
+    "npm",
+    "github-actions",
+    "dockerfile",
+    "docker-compose",
+    "pip_requirements",
+    "pep621",
+    "poetry",
+    "pip_setup",
+    "gomod",
+    "cargo",
+    "terraform",
+    "helm-values",
+    "kubernetes",
+    "git-submodules",
+    "nvm",
+    "asdf",
+    "devcontainer",
+    "composer",
+    "nuget",
+    "bundler",
+    "maven",
+    "gradle"
+  ],
+  "dependencyDashboard": true,
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "**/vendor/**",
+    "**/{archive,Archive,ARCHIVE,_archive,backups}/**",
+    "**/{.venv,.next,.turbo,dist,build,output}/**",
+    "**/*.disabled"
+  ],
+  "description": "Platform-owned portfolio dependency policy. Renovate updates declared dependencies and lockfiles across supported ecosystems. Shared-package lanes and repository-specific restrictions remain explicit; majors and pre-1 breaking candidates require review.",
+  "packageRules": [
+    {
+      "description": "Portfolio policy: discover every supported dependency ecosystem; changes remain reviewed pull requests.",
+      "matchManagers": [
+        "npm",
+        "github-actions",
+        "dockerfile",
+        "docker-compose",
+        "pip_requirements",
+        "pep621",
+        "poetry",
+        "pip_setup",
+        "gomod",
+        "cargo",
+        "terraform",
+        "helm-values",
+        "kubernetes",
+        "git-submodules",
+        "nvm",
+        "asdf",
+        "devcontainer",
+        "composer",
+        "nuget",
+        "bundler",
+        "maven",
+        "gradle"
+      ],
+      "enabled": true,
+      "automerge": false
+    },
+    {
+      "description": "Portfolio policy: advance declared npm and Python floors as well as generated lockfiles.",
+      "matchManagers": [
+        "npm",
+        "pip_requirements",
+        "pep621",
+        "poetry",
+        "pip_setup"
+      ],
+      "rangeStrategy": "bump"
+    },
+    {
+      "description": "Portfolio policy: group routine application libraries; explicit shared-package lanes below take precedence.",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "groupName": "npm application dependencies",
+      "groupSlug": "npm-application-dependencies",
+      "automerge": false
+    },
+    {
+      "description": "Portfolio policy: review build and test tooling separately from application libraries.",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "groupName": "npm development dependencies",
+      "groupSlug": "npm-development-dependencies",
+      "automerge": false
+    },
+    {
+      "description": "Portfolio policy: review routine github-actions updates together.",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "pinDigest"
+      ],
+      "groupName": "github actions",
+      "automerge": false
+    },
+    {
+      "description": "Portfolio policy: review routine dockerfile updates together.",
+      "matchManagers": [
+        "dockerfile"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "pinDigest"
+      ],
+      "groupName": "container images",
+      "automerge": false
+    },
+    {
+      "description": "Portfolio policy: review routine docker-compose updates together.",
+      "matchManagers": [
+        "docker-compose"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "pinDigest"
+      ],
+      "groupName": "container images",
+      "automerge": false
+    },
+    {
+      "description": "Portfolio policy: review routine pip_requirements updates together.",
+      "matchManagers": [
+        "pip_requirements"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "pinDigest"
+      ],
+      "groupName": "python dependencies",
+      "automerge": false
+    },
+    {
+      "description": "Portfolio policy: review routine pep621 updates together.",
+      "matchManagers": [
+        "pep621"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "pinDigest"
+      ],
+      "groupName": "python dependencies",
+      "automerge": false
+    },
+    {
+      "description": "Portfolio policy: review routine poetry updates together.",
+      "matchManagers": [
+        "poetry"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "pinDigest"
+      ],
+      "groupName": "python dependencies",
+      "automerge": false
+    },
+    {
+      "description": "Portfolio policy: major upgrades in every ecosystem require an explicit dashboard decision.",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "dependencyDashboardApproval": true,
+      "automerge": false
+    },
+    {
+      "description": "Portfolio policy: pre-1 npm minor releases may break compatibility and require review.",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchCurrentVersion": "<1.0.0",
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "dependencyDashboardApproval": true,
+      "automerge": false
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": false
+  },
+  "prHourlyLimit": 2,
+  "prConcurrentLimit": 3
+}
