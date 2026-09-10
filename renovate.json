@@ -202,6 +202,25 @@
       "automerge": false
     },
     {
+      "description": "Portfolio policy: review runtime and package-manager versions together across manifests and CI; preserve the locked toolchain until that review.",
+      "matchManagers": [
+        "npm",
+        "github-actions",
+        "nvm",
+        "asdf"
+      ],
+      "matchPackageNames": [
+        "node",
+        "pnpm",
+        "npm",
+        "bun"
+      ],
+      "groupName": "runtime and package manager",
+      "groupSlug": "runtime-and-package-manager",
+      "dependencyDashboardApproval": true,
+      "automerge": false
+    },
+    {
       "description": "Portfolio policy: major upgrades in every ecosystem require an explicit dashboard decision.",
       "matchUpdateTypes": [
         "major"
