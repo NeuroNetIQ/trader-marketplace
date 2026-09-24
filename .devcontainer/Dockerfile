@@ -1,4 +1,4 @@
-FROM node:20.11.0-bullseye
+FROM node:20.20.2-bullseye
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
