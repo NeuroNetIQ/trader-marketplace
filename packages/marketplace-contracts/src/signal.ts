@@ -23,7 +23,7 @@ export const SignalInferenceRequest = z.object({
       z.number(), // volume
     ])
   ).optional(),
-  features: z.record(z.number()).optional(),
+  features: z.record(z.string(), z.number()).optional(),
 });
 
 /**
@@ -35,7 +35,7 @@ export const SignalInferenceResponse = z.object({
   rationale: z.array(z.string()).optional(),
   model_version: z.string(),
   timestamp: z.string(),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
 });
 
 /**
