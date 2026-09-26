@@ -21,7 +21,7 @@ jobs:
     
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         
       - name: Release Please
         id: release
@@ -38,16 +38,16 @@ jobs:
     
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.11.0'
+          node-version: '20.20.2'
           registry-url: 'https://registry.npmjs.org'
           
       - name: Setup pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
           version: '10.14.0'
           
@@ -70,16 +70,16 @@ jobs:
     
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.11.0'
+          node-version: '20.20.2'
           registry-url: 'https://registry.npmjs.org'
           
       - name: Setup pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
           version: '10.14.0'
           
@@ -102,7 +102,7 @@ jobs:
     
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           
