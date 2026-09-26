@@ -23,9 +23,9 @@ export const OptimizerInferenceRequest = z.object({
     max_positions: z.number().optional(),
     max_weight_per_asset: z.number().min(0).max(1).optional(),
     min_weight_per_asset: z.number().min(0).max(1).optional(),
-    sector_limits: z.record(z.number()).optional(),
+    sector_limits: z.record(z.string(), z.number()).optional(),
   }).optional(),
-  market_data: z.record(z.any()).optional(),
+  market_data: z.record(z.string(), z.any()).optional(),
 });
 
 /**
@@ -39,7 +39,7 @@ export const OptimizerInferenceResponse = z.object({
   model_version: z.string(),
   timestamp: z.string(),
   rationale: z.array(z.string()).optional(),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
 });
 
 /**

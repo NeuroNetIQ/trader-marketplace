@@ -11,7 +11,7 @@ import { Timeframe, Decision } from "./signal.js";
 export const ConsensusInferenceRequest = z.object({
   symbol: z.string().min(1, "Symbol is required"),
   timeframe: Timeframe,
-  inputs: z.record(z.any()).optional(),
+  inputs: z.record(z.string(), z.any()).optional(),
   signals: z.array(z.object({
     decision: Decision,
     confidence: z.number().min(0).max(1),
@@ -28,12 +28,12 @@ export const ConsensusInferenceResponse = z.object({
   model_version: z.string(),
   timestamp: z.string(),
   rationale: z.array(z.string()).optional(),
-  contributions: z.record(z.object({
+  contributions: z.record(z.string(), z.object({
     decision: Decision,
     weight: z.number(),
     confidence: z.number().optional(),
   })).optional(),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
 });
 
 /**
