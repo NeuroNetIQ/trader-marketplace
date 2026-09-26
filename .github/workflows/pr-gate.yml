@@ -1,0 +1,45 @@
+name: pr-gate
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: pr-gate-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  pr-gate:
+    name: pr-gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.14.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.11.0
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # Only scripts that packages already define. --if-present skips packages
+      # that do not ship lint or typecheck so the gate stays green on main.
+      - name: Lint
+        run: pnpm -r --if-present lint
+
+      - name: Typecheck
+        run: pnpm -r --if-present typecheck && pnpm -r --if-present type-check
+
+      - name: Test
+        run: pnpm -r --if-present test
+
+      - name: Build
+        run: pnpm -r --if-present build
