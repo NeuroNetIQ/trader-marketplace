@@ -38,7 +38,7 @@
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/prompts": "^2.4.9",
-    "tsx": "^4.7.0",
+    "tsx": "^4.20.6",
     "typescript": "^5.5.0"
   },
   "engines": {
