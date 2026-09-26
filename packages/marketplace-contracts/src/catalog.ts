@@ -46,7 +46,7 @@ export const ModelVersion = z.object({
   version: z.string(),
   stage: ModelStage,
   created_at: z.string(),
-  performance_metrics: z.record(z.number()).optional(),
+  performance_metrics: z.record(z.string(), z.number()).optional(),
   changelog: z.string().optional(),
 });
 
@@ -98,7 +98,7 @@ export const Metric = z.object({
   metric_type: z.enum(["inference", "performance", "error"]),
   timestamp: z.string(),
   value: z.number(),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
 });
 
 // Type exports
