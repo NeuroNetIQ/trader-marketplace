@@ -21,6 +21,7 @@ class MarketplaceSignalWriter:
         self.deployment_id = os.getenv('DEPLOYMENT_ID', 'dep_python_example')
         self.model_id = os.getenv('MODEL_ID', 'python_signal_model')
         self.model_version = os.getenv('MODEL_VERSION', '1.0.0')
+        self.contracts_version = os.getenv('CONTRACTS_VERSION', '0.17.0')
         
     def create_signal(self, symbol: str, timeframe: str, decision: str, confidence: float, rationale: List[str] = None) -> Dict[str, Any]:
         """Create a signal payload conforming to contracts v0.16.0"""
@@ -57,7 +58,8 @@ class MarketplaceSignalWriter:
         headers = {
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.marketplace_token}',
-            'X-Marketplace-Contracts-Version': '0.2.0',
+            'X-Contracts-Version': self.contracts_version,
+            'X-Marketplace-Contracts-Version': '0.2.2',
             'X-Idempotency-Key': self.create_idempotency_key(signals[0]['symbol'], signals[0]['timeframe']),
             'User-Agent': f'python-signal-writer/1.0.0 vendor/{self.vendor_id}',
         }
@@ -87,7 +89,7 @@ class MarketplaceSignalWriter:
 def main():
     """Example usage"""
     # Configuration from environment
-    infra_url = os.getenv('INFRA_SIGNALS_URL', 'https://infra.neuronetiq.com')
+    infra_url = os.getenv('INFRA_SIGNALS_URL', 'https://trader-infra.fly.dev')
     marketplace_token = os.getenv('MARKETPLACE_TOKEN')
     
     if not marketplace_token:
