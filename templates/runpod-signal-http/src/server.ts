@@ -56,7 +56,8 @@ app.post("/infer", async (req, reply) => {
     
     const inferenceTime = Date.now() - startTime;
     
-    // Prepare response
+
+    // Prepare marketplace response (for API consumers)
     const payload = SignalWrite.parse({
       symbol,
       timeframe,
@@ -83,6 +84,7 @@ app.post("/infer", async (req, reply) => {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.MARKETPLACE_TOKEN}`,
+            "X-Contracts-Version": process.env.CONTRACTS_VERSION || "0.17.0",
             "X-Idempotency-Key": makeIdempotencyKey(symbol, timeframe, now),
             ...withMarketplaceHeaders(),
           },

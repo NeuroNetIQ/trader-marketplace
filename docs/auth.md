@@ -112,16 +112,19 @@ CLI stores credentials in `~/.mp/config.json` with 0600 permissions:
 ### **Development**
 ```bash
 mp login --api-url http://localhost:3010
+# Or set default: mp config set api-url http://localhost:3010
 ```
 
 ### **Staging**
 ```bash
 mp login --api-url https://staging-infra.neuronetiq.com
+# Or set default: mp config set api-url https://staging-infra.neuronetiq.com
 ```
 
 ### **Production**
 ```bash
 mp login --api-url https://infra.neuronetiq.com
+# Or set default: mp config set api-url https://infra.neuronetiq.com
 ```
 
 ## Vendor Profile Management
