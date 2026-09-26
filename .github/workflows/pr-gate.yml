@@ -1,0 +1,68 @@
+name: pr-gate
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: pr-gate-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  pr-gate:
+    name: pr-gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.14.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.11.0
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # Only scripts that packages already define. --if-present skips packages
+      # that do not ship lint or typecheck so the gate stays green on main.
+      - name: Lint
+        run: pnpm -r --if-present lint
+
+      - name: Typecheck
+        run: pnpm -r --if-present typecheck && pnpm -r --if-present type-check
+
+      # `node --test test/*.spec.js` is the existing script. On Node 20 an
+      # unmatched glob is a missing file and exits 1, even when the package
+      # has no compiled specs. Run it when spec.js files exist; other test
+      # scripts (the training template) still run as written.
+      - name: Test
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          for pkg in packages/*/package.json templates/*/package.json; do
+            dir=$(dirname "$pkg")
+            script=$(node -p "require('./$pkg').scripts?.test ?? ''")
+            if [ -z "$script" ]; then
+              continue
+            fi
+            if [ "$script" = "node --test test/*.spec.js" ]; then
+              specs=("$dir"/test/*.spec.js)
+              if [ ${#specs[@]} -eq 0 ]; then
+                echo "No test/*.spec.js in $dir"
+              else
+                (cd "$dir" && node --test test/*.spec.js)
+              fi
+            else
+              pnpm --dir "$dir" test
+            fi
+          done
+
+      - name: Build
+        run: pnpm -r --if-present build
