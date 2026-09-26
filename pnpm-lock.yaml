@@ -17,8 +17,8 @@ importers:
         specifier: ^11.1.0
         version: 11.1.0
       fs-extra:
-        specifier: ^11.2.0
-        version: 11.3.1
+        specifier: ^11.3.2
+        version: 11.4.1
       node-fetch:
         specifier: ^3.3.2
         version: 3.3.2
@@ -380,8 +380,8 @@ packages:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
 
-  fs-extra@11.3.1:
-    resolution: {integrity: sha512-eXvGGwZ5CL17ZSwHWd3bbgk7UUpF6IFHtP57NYYakPvHOs8GDgDe5KJI36jIJzDkJ6eJjuzRA8eBQb6SkKue0g==}
+  fs-extra@11.4.1:
+    resolution: {integrity: sha512-KYAb4c9BJQI6QqGKthV68OHe0badztdXJWKo0WtBA9IuCFPTKvE5ZdUBglP833aMjhaSPNO4A5j/EkzZtGlKjA==}
     engines: {node: '>=14.14'}
 
   fsevents@2.3.3:
@@ -842,7 +842,7 @@ snapshots:
 
   forwarded@0.2.0: {}
 
-  fs-extra@11.3.1:
+  fs-extra@11.4.1:
     dependencies:
       graceful-fs: 4.2.11
       jsonfile: 6.2.0
