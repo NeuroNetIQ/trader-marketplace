@@ -21,7 +21,7 @@ export const TrainingSpecSchema = z.object({
   round_id: z.string().min(1),
   dataset_urls: z.array(z.string().url()).min(1), // signed URLs you mint
   task: TrainingTask,
-  hyperparams: z.record(z.union([z.string(), z.number(), z.boolean()])).default({}),
+  hyperparams: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).default({}),
   // Optional hints
   hf_repo_id: z.string().optional(),       // e.g. "vendor/model-name"
   base_image: z.string().optional(),       // e.g. "nvidia/cuda:12.2.2-runtime-ubuntu22.04"
@@ -51,7 +51,7 @@ export const TrainingRunSchema = z.object({
     tarball_url: z.string().url().optional(),
     commit: z.string().optional(),
   }).default({}),
-  metrics: z.record(z.number()).default({}), // sharpe, win_rate, etc.
+  metrics: z.record(z.string(), z.number()).default({}), // sharpe, win_rate, etc.
 });
 export type TrainingRun = z.infer<typeof TrainingRunSchema>;
 
@@ -71,7 +71,7 @@ export const DatasetRound = z.object({
     size_bytes: z.number(),
     format: z.string(), // "csv", "parquet", etc.
   })),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
 });
 export type DatasetRound = z.infer<typeof DatasetRound>;
 
