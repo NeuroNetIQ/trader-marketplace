@@ -38,8 +38,31 @@ jobs:
       - name: Typecheck
         run: pnpm -r --if-present typecheck && pnpm -r --if-present type-check
 
+      # `node --test test/*.spec.js` is the existing script. On Node 20 an
+      # unmatched glob is a missing file and exits 1, even when the package
+      # has no compiled specs. Run it when spec.js files exist; other test
+      # scripts (the training template) still run as written.
       - name: Test
-        run: pnpm -r --if-present test
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          for pkg in packages/*/package.json templates/*/package.json; do
+            dir=$(dirname "$pkg")
+            script=$(node -p "require('./$pkg').scripts?.test ?? ''")
+            if [ -z "$script" ]; then
+              continue
+            fi
+            if [ "$script" = "node --test test/*.spec.js" ]; then
+              specs=("$dir"/test/*.spec.js)
+              if [ ${#specs[@]} -eq 0 ]; then
+                echo "No test/*.spec.js in $dir"
+              else
+                (cd "$dir" && node --test test/*.spec.js)
+              fi
+            else
+              pnpm --dir "$dir" test
+            fi
+          done
 
       - name: Build
         run: pnpm -r --if-present build
