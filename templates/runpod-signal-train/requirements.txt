@@ -12,7 +12,7 @@ xgboost>=1.7.6
 huggingface-hub>=0.36.2
 
 # Weights & Biases (optional)
-wandb>=0.30.0
+wandb>=0.31.0
 
 # Data formats
 pyarrow>=14.0.2  # For parquet files
