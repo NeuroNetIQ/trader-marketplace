@@ -48,7 +48,7 @@ services:
       - marketplace-network
 
   supabase-db:
-    image: supabase/postgres:15.19.0.008
+    image: supabase/postgres:15.19.0.011
     environment:
       POSTGRES_HOST: /var/run/postgresql
       POSTGRES_PORT: 5432
